@@ -14,7 +14,7 @@ function checkIfPresent()
 end
 peripheral.find("modem", rednet.open)
 print("Enter Hostname")
-parallel.waitForAny(getHostName(),checkIfPresent())
+parallel.waitForAny(getHostName,checkIfPresent)
 rednet.host("Fax",hostname)
 local machines=rednet.lookup("Fax",nil,5)
 print("Fax IDs:")
@@ -52,8 +52,9 @@ function sendFax()
                 print("Enter Target ID")
                 local target=read()
                 print("Enter Message. Type !send on a new line to send message.")
-                local message=[]
+                local message={}
                 local currentLine
+                local linebatch={}
                 if hostname then
                     currentLine="Fax From "+hostname
                     local spaces=(25-#currentLine)
@@ -67,7 +68,35 @@ function sendFax()
                     message[1]=currentLine
                     message[2]=string.rep(" ",25)
                 end
-                
+                local i=3
+                while true do
+                    linebatch=strings.wrap(read(),25)
+                    for r=1,#linebatch do
+                        print(linebatch[r])
+                        message[i]=linebatch[r]
+                        i=i+1
+                    end
+                    if message[#message]="!send" then
+                        return
+                    end
+                    local spaces=(25-#message[#message])
+                    message[#message]=message[#message]+(string.rep(" ",spaces)
+                end
+                local messageToSend=table.concat(message)
+                for i=1,20 do
+                    rednet.send(target,messagetosend,"Fax")
+                    local id, message = rednet.receive(nil, 5)
+                    if id then
+                        return
+                    end
+                    os.sleep(0)    
+                end
+            end
+        end
+    end
+end
+parallel.waitForAll(receiveFax,sendFax)
+
 
 
 
