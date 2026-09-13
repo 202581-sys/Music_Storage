@@ -79,23 +79,23 @@ end
 
 function listenForCommands()
   while true do
-    local senderID, message = rednet.receive() -- Wait for incoming commands[cite: 3]
+    local senderID, message = rednet.receive() -- Wait for incoming commands
 
     -- Verify message is a valid table payload
     if type(message) == "table" and message.type then
 
       if message.type == "adjust_output" then
-        local cFlow = fluxgate.getSignalLowFlow()[cite: 1]
-        fluxgate.setSignalLowFlow(cFlow + message.value)[cite: 1]
+        local cFlow = fluxgate.getSignalLowFlow()
+        fluxgate.setSignalLowFlow(cFlow + message.value)
 
       elseif message.type == "adjust_input" and autoInputGate == 0 then
-        curInputGate = curInputGate + message.value[cite: 1]
-        inputfluxgate.setSignalLowFlow(curInputGate)[cite: 1]
-        save_config()[cite: 1]
+        curInputGate = curInputGate + message.value
+        inputfluxgate.setSignalLowFlow(curInputGate)
+        save_config()
 
       elseif message.type == "toggle_auto" then
-        autoInputGate = (autoInputGate == 1) and 0 or 1[cite: 1]
-        save_config()[cite: 1]
+        autoInputGate = (autoInputGate == 1) and 0 or 1
+        save_config()
       end
 
     end
