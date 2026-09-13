@@ -1,9 +1,9 @@
--- drmon installation script
+-- Maen installation script
 --
 --
 
 local libURL = "https://raw.githubusercontent.com/raithsphere/drmon/master/lib/f.lua"
-local startupURL = "https://raw.githubusercontent.com/raithsphere/drmon/master/drmon.lua"
+local startupURL = "https://raw.githubusercontent.com/202581-sys/Music_Storage/refs/heads/main/dereactor/dreactor"
 local lib, startup
 local libFile, startupFile
 

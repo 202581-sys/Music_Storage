@@ -4,6 +4,8 @@ os.loadAPI("lib/f")
 local ri
 local outgate
 local ingate
+local action = "Connecting..."
+local autoInputGate = 1
 -- monitor 
 local mon, monitor, monX, monY
 local activateOnCharged = 1
@@ -13,8 +15,71 @@ local maxTemperature = 8000
 local safeTemperature = 3000
 local lowestFieldPercent = 3
 
+local reactorID=2848
+
 monitor_peripheral = f.periphSearch("monitor")
 monitor = window.create(monitor_peripheral, 1, 1, monitor_peripheral.getSize()) -- create a window on the monitor
+
+monX, monY = monitor.getSize()
+mon = {}
+mon.monitor,mon.X, mon.Y = monitor, monX, monY
+
+function drawButtons(y)
+
+  -- 2-4 = -1000, 6-9 = -10000, 10-12,8 = -100000
+  -- 17-19 = +1000, 21-23 = +10000, 25-27 = +100000
+
+  f.draw_text(mon, 2, y, " < ", colors.white, colors.gray)
+  f.draw_text(mon, 6, y, " <<", colors.white, colors.gray)
+  f.draw_text(mon, 10, y, "<<<", colors.white, colors.gray)
+
+  f.draw_text(mon, 17, y, ">>>", colors.white, colors.gray)
+  f.draw_text(mon, 21, y, ">> ", colors.white, colors.gray)
+  f.draw_text(mon, 25, y, " > ", colors.white, colors.gray)
+end
+
+function handleButtons()
+  while true do
+    local event, side, xPos, yPos = os.pullEvent("monitor_touch")
+
+    -- Output Gate Controls (Row 8)
+    if yPos == 8 then
+      local delta = 0
+      if xPos >= 2 and xPos <= 4 then delta = -1000
+      elseif xPos >= 6 and xPos <= 9 then delta = -10000
+      elseif xPos >= 10 and xPos <= 12 then delta = -100000
+      elseif xPos >= 17 and xPos <= 19 then delta = 100000
+      elseif xPos >= 21 and xPos <= 23 then delta = 10000
+      elseif xPos >= 25 and xPos <= 27 then delta = 1000
+      end
+
+      if delta ~= 0 then
+        rednet.send(reactorID, { type = "adjust_output", value = delta })
+      end
+    end
+
+    -- Input Gate Controls (Row 10)
+    if yPos == 10 then
+      -- Toggle AU / MA mode[cite: 1]
+      if xPos == 14 or xPos == 15 then
+        rednet.send(reactorID, { type = "toggle_auto" })
+      else
+        local delta = 0
+        if xPos >= 2 and xPos <= 4 then delta = -1000
+        elseif xPos >= 6 and xPos <= 9 then delta = -10000
+        elseif xPos >= 10 and xPos <= 12 then delta = -100000
+        elseif xPos >= 17 and xPos <= 19 then delta = 100000
+        elseif xPos >= 21 and xPos <= 23 then delta = 10000
+        elseif xPos >= 25 and xPos <= 27 then delta = 1000
+        end
+
+        if delta ~= 0 then
+          rednet.send(reactorID, { type = "adjust_input", value = delta })
+        end
+      end
+    end
+  end
+end
 
 function update()
   while true do 
@@ -22,11 +87,13 @@ function update()
     monitor.setVisible(false) -- disable updating the screen.
     f.clear(mon)
 
-    rinfo = rednet.recieve()
+    local id, rinfo = rednet.receive()
     
     ri = rinfo[1]
     outgate = rinfo[2]
     ingate = rinfo[3]
+    autoInputGate = rinfo[4]
+    action = rinfo[5]
 
     
 
@@ -117,3 +184,4 @@ function update()
     sleep(0)
   end
 end
+parallel.waitForAny(handleButtons, update)

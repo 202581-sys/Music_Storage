@@ -18,8 +18,7 @@ local version = "0.25"
 local autoInputGate = 1
 local curInputGate = 222000
 
--- monitor 
-local mon, monitor, monX, monY
+
 
 -- peripherals
 local reactor
@@ -34,31 +33,23 @@ local action = "None since reboot"
 local emergencyCharge = false
 local emergencyTemp = false
 
-monitor_peripheral = f.periphSearch("monitor")
-monitor = window.create(monitor_peripheral, 1, 1, monitor_peripheral.getSize()) -- create a window on the monitor
 inputfluxgate = f.periphSearch("flow_gate")
 fluxgate = peripheral.wrap(fluxgateSide)
 reactor = peripheral.wrap(reactorSide)
 
-if monitor == null then
-	error("No valid monitor was found")
-end
 
-if fluxgate == null then
+if fluxgate == nil then
 	error("No valid fluxgate was found")
 end
 
-if reactor == null then
+if reactor == nil then
 	error("No valid reactor was found")
 end
 
-if inputfluxgate == null then
+if inputfluxgate == nil then
 	error("No valid flux gate was found")
 end
 
-monX, monY = monitor.getSize()
-mon = {}
-mon.monitor,mon.X, mon.Y = monitor, monX, monY
 
 --write settings to config file
 function save_config()
@@ -86,80 +77,32 @@ else
   load_config()
 end
 
-function buttons()
-
+function listenForCommands()
   while true do
-    -- button handler
-    event, side, xPos, yPos = os.pullEvent("monitor_touch")
+    local senderID, message = rednet.receive() -- Wait for incoming commands[cite: 3]
 
-    -- output gate controls
-    -- 2-4 = -1000, 6-9 = -10000, 10-12,8 = -100000
-    -- 17-19 = +1000, 21-23 = +10000, 25-27 = +100000
-    if yPos == 8 then
-      local cFlow = fluxgate.getSignalLowFlow()
-      if xPos >= 2 and xPos <= 4 then
-        cFlow = cFlow-1000
-      elseif xPos >= 6 and xPos <= 9 then
-        cFlow = cFlow-10000
-      elseif xPos >= 10 and xPos <= 12 then
-        cFlow = cFlow-100000
-      elseif xPos >= 17 and xPos <= 19 then
-        cFlow = cFlow+100000
-      elseif xPos >= 21 and xPos <= 23 then
-        cFlow = cFlow+10000
-      elseif xPos >= 25 and xPos <= 27 then
-        cFlow = cFlow+1000
+    -- Verify message is a valid table payload
+    if type(message) == "table" and message.type then
+
+      if message.type == "adjust_output" then
+        local cFlow = fluxgate.getSignalLowFlow()[cite: 1]
+        fluxgate.setSignalLowFlow(cFlow + message.value)[cite: 1]
+
+      elseif message.type == "adjust_input" and autoInputGate == 0 then
+        curInputGate = curInputGate + message.value[cite: 1]
+        inputfluxgate.setSignalLowFlow(curInputGate)[cite: 1]
+        save_config()[cite: 1]
+
+      elseif message.type == "toggle_auto" then
+        autoInputGate = (autoInputGate == 1) and 0 or 1[cite: 1]
+        save_config()[cite: 1]
       end
-      fluxgate.setSignalLowFlow(cFlow)
-    end
 
-    -- input gate controls
-    -- 2-4 = -1000, 6-9 = -10000, 10-12,8 = -100000
-    -- 17-19 = +1000, 21-23 = +10000, 25-27 = +100000
-    if yPos == 10 and autoInputGate == 0 and xPos ~= 14 and xPos ~= 15 then
-      if xPos >= 2 and xPos <= 4 then
-        curInputGate = curInputGate-1000
-      elseif xPos >= 6 and xPos <= 9 then
-        curInputGate = curInputGate-10000
-      elseif xPos >= 10 and xPos <= 12 then
-        curInputGate = curInputGate-100000
-      elseif xPos >= 17 and xPos <= 19 then
-        curInputGate = curInputGate+100000
-      elseif xPos >= 21 and xPos <= 23 then
-        curInputGate = curInputGate+10000
-      elseif xPos >= 25 and xPos <= 27 then
-        curInputGate = curInputGate+1000
-      end
-      inputfluxgate.setSignalLowFlow(curInputGate)
-      save_config()
     end
-
-    -- input gate toggle
-    if yPos == 10 and ( xPos == 14 or xPos == 15) then
-      if autoInputGate == 1 then
-        autoInputGate = 0
-      else
-        autoInputGate = 1
-      end
-      save_config()
-    end
-
   end
 end
 
-function drawButtons(y)
 
-  -- 2-4 = -1000, 6-9 = -10000, 10-12,8 = -100000
-  -- 17-19 = +1000, 21-23 = +10000, 25-27 = +100000
-
-  f.draw_text(mon, 2, y, " < ", colors.white, colors.gray)
-  f.draw_text(mon, 6, y, " <<", colors.white, colors.gray)
-  f.draw_text(mon, 10, y, "<<<", colors.white, colors.gray)
-
-  f.draw_text(mon, 17, y, ">>>", colors.white, colors.gray)
-  f.draw_text(mon, 21, y, ">> ", colors.white, colors.gray)
-  f.draw_text(mon, 25, y, " > ", colors.white, colors.gray)
-end
 
 
 
@@ -168,7 +111,7 @@ function update()
 
     ri = reactor.getReactorInfo()
 
-    local message = {ri,fluxgate.getSignalLowFlow(),inputfluxgate.getSignalLowFlow()}
+    local message = {ri,fluxgate.getSignalLowFlow(),inputfluxgate.getSignalLowFlow(),autoInputGate,action}
     rednet.send(2859,message)
 
       -- print out all the infos from .getReactorInfo() to term
@@ -218,7 +161,11 @@ function update()
 
     -- safeguards
     --
-    
+    fuelPercent = 100 - math.ceil(ri.fuelConversion / ri.maxFuelConversion * 10000)*.01
+
+    local fieldPercent, fieldColor
+    fieldPercent = math.ceil(ri.fieldStrength / ri.maxFieldStrength * 10000)*.01
+
     -- out of fuel, kill it
     if fuelPercent <= 10 then
       reactor.stopReactor()
@@ -244,4 +191,4 @@ function update()
   end
 end
 
-parallel.waitForAny(buttons, update)
+parallel.waitForAny(listenForCommands, update)
