@@ -35,34 +35,10 @@ mon.setTextScale(0.5)
 -- ========== SONG LIST ==========
 
 local songs = http.request({
-                url = ,
+                url = "https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Weird_Al.txt",
                 binary = true,
                 headers = { ["User-Agent"] = "CC-Tweaked" }
             })
-
-{
-    {
-        name = "Akon - Ghetto",
-        url = "https://raw.githubusercontent.com/iChronixz-git/Music/main/1nryuu.dfpwm"
-    },
-    {
-        name = "Post Malone - Wasting Angels ft Kid Laroi",
-        url = "https://raw.githubusercontent.com/202581-sys/Music_Storage/main/Post%20Malone%20-%20Wasting%20Angels%20w.%20The%20Kid%20LAROI%20(Official%20Lyric%20Video)%20%5BLBbHPn-7v1I%5D.dfpwm"
-    },
-    {
-        name = "Queen - Bohemian Rhapsody",
-        url = "https://raw.githubusercontent.com/202581-sys/Music_Storage/main/Queen%20%E2%80%93%20Bohemian%20Rhapsody%20(Official%20Video%20Remastered)%20%5BfJ9rUzIMcZQ%5D.dfpwm"
-    },
-    {
-        name = "Bad Bunny - DtMF",
-        url = "https://raw.githubusercontent.com/iChronixz-git/Music/main/BAD%20BUNNY%20-%20DtMF%20(Visualizer)%20DeB%C3%8D%20TiRAR%20M%C3%A1S%20FOToS.dfpwm"
-    },
-    {
-        name = "XS Project - Bochka, Bass, Kolbaser",
-        url = "https://raw.githubusercontent.com/iChronixz-git/Music/main/XS%20Project%20-%20Bochka,%20Bass,%20Kolbaser%20%5BBass%20Boosted%5D%20(Russian%20Special)%20-%20(256%20Kbps).dfpwm"
-    },
-}
-
 -- ===============================
 
 local scroll = 0
