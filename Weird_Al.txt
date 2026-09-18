@@ -31,5 +31,9 @@
 name="565 Weird Al",
     url="https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Songs/Weird_Al.dfpwm"
 },
+{
+name="Alfrica",
+    url="https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Songs/Weezer%20-%20Africa%20(starring%20Weird%20Al%20Yankovic)%20%5Bmk5Dwg5zm2U%5D.dfpwm"
+},
 }
     
