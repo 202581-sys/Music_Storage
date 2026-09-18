@@ -1,17 +1,18 @@
 {
-    name = "White and Nerdy",
+{
+    name = "White And Nerdy",
     url = "https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Songs/%EF%BC%82Weird%20Al%EF%BC%82%20Yankovic%20-%20White%20&%20Nerdy%20(Official%204K%20Video)%20%5BN9qYF9DZPdw%5D.dfpwm"
 },
 {
-    name = "Party in the CIA",
+    name = "Party In The CIA",
     url = "https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Songs/Party%20In%20The%20CIA%20(Parody%20of%20%EF%BC%82Party%20In%20The%20U.S.A.%EF%BC%82%20by%20Miley%20Cyrus)%20(Official%204K%20Video)%20%5BC-CG5w4YwOI%5D.dfpwm"
 },
 {
-    name = "All About the Pentiums",
+    name = "All About The Pentiums",
     url = "https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Songs/%EF%BC%82Weird%20Al%EF%BC%82%20Yankovic%20-%20It's%20All%20About%20The%20Pentiums%20(Official%20Video)%20%5BqpMvS1Q1sos%5D.dfpwm"
 },
 {
-    name = "I Lost on Jeopardy",
+    name = "I Lost On Jeopardy",
     url = "https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Songs/%EF%BC%82Weird%20Al%EF%BC%82%20Yankovic%20-%20I%20Lost%20On%20Jeopardy%20(Official%20Video)%20%5BBvUZijEuNDQ%5D.dfpwm"
 },
 {
@@ -19,19 +20,12 @@
     url = "https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Songs/%EF%BC%82Weird%20Al%EF%BC%82%20Yankovic%20-%20Fat%20(Official%20Video)%20%5Bt2mU6USTBRE%5D.dfpwm"
 },
 {
-    name = "",
-    url = ""
+    name = "Don't Download This Song",
+    url = "https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Songs/%EF%BC%82Weird%20Al%EF%BC%82%20Yankovic%20-%20Don't%20Download%20This%20Song%20(Official%20Video)%20%5BzGM8PT1eAvY%5D.dfpwm"
 },
 {
-    name = "",
-    url = ""
+    name = "Dare To Be Stupid",
+    url = "https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Songs/%EF%BC%82Weird%20Al%EF%BC%82%20Yankovic%20-%20Dare%20To%20Be%20Stupid%20(Official%20Video)%20%5BSMhwddNQSWQ%5D.dfpwm"
 },
-{
-    name = "",
-    url = ""
-},
-{
-    name = "",
-    url = ""
-},
+}
     

@@ -11,7 +11,7 @@ local lists = {
     url=""
 },
 {
-    name="Misc Songs",
+    name="Variety",
     url=""
 },
 }
