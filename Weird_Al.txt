@@ -27,5 +27,9 @@
     name = "Dare To Be Stupid",
     url = "https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Songs/%EF%BC%82Weird%20Al%EF%BC%82%20Yankovic%20-%20Dare%20To%20Be%20Stupid%20(Official%20Video)%20%5BSMhwddNQSWQ%5D.dfpwm"
 },
+{
+name="565 Weird Al"
+    url="https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Songs/Weird_Al.dfpwm"
+},
 }
     

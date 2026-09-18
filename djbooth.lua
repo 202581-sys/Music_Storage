@@ -15,17 +15,18 @@ local lists = {
     url="https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Variety.txt"
 },
 }
+local chosenlist = 0
 while true do
     print("What Playlist do you want?")
     for i=1,#lists do
         print(lists[i].name)
     end
     local enteredlist = read()
-    local chosenlist = 0
+
 
     for i=1,#lists do
-        if lists[i].name==enteredlist then
-            chosenlist=enteredlist
+        if lists[i].name:lower()==enteredlist:lower() then
+            chosenlist=i
         end
     end
     if chosenlist == 0 then
@@ -50,14 +51,29 @@ end
 term.redirect(mon)
 mon.setTextScale(0.5)
 
--- ========== SONG LIST ==========
+local res = http.get(lists[chosenlist].url)
+if not res then
+    error("Failed to download playlist from GitHub!")
+end
 
-local songs = http.request({
-                url = chosenlist,
-                binary = true,
-                headers = { ["User-Agent"] = "CC-Tweaked" }
-            })
--- ===============================
+local content = res.readAll()
+res.close()
+
+-- Parse the text file containing Lua table syntax
+local songs = textutils.unserialise(content)
+
+-- Fallback to load() if textutils struggles with any trailing formatting
+if not songs then
+    local func = load("return " .. content, "playlist", "t", {})
+    if func then
+        songs = func()
+    end
+end
+
+if not songs or type(songs) ~= "table" or #songs == 0 then
+    error("Failed to parse playlist or playlist is empty!")
+end
+
 
 local scroll = 0
 local selected = 1
