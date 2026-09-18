@@ -14,5 +14,5 @@
 {
     name="784 Variety",
     url="https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Songs/Variety.dfpwm"
-}
+},
 }
