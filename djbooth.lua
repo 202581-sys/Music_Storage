@@ -4,15 +4,15 @@ local mon = peripheral.find("monitor") or error("No Advanced Monitor found!")
 local lists = {
 {
     name="Weird Al",
-    url=""
+    url="https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Weird_Al.txt"
 },
 {
     name="Under The Influence",
-    url=""
+    url="https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Under_The_Influence.txt"
 },
 {
     name="Variety",
-    url=""
+    url="https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Variety.txt"
 },
 }
 print("What Playlist do you want?")
