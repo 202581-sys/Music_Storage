@@ -12,7 +12,7 @@
     url="https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Songs/Queen%20%E2%80%93%20Bohemian%20Rhapsody%20(Official%20Video%20Remastered)%20%5BfJ9rUzIMcZQ%5D.dfpwm"
 },
 {
-    name="784 Variety"
+    name="784 Variety",
     url="https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Songs/Variety.dfpwm"
 }
 }
