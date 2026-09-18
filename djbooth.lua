@@ -17,7 +17,9 @@ local lists = {
 }
 while true do
     print("What Playlist do you want?")
-    print(textutils.serialize(lists))
+    for i=1,#lists do
+        print(lists[i].name)
+    end
     local enteredlist = read()
     local chosenlist = 0
 
