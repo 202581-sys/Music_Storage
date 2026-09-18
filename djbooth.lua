@@ -15,18 +15,21 @@ local lists = {
     url="https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Variety.txt"
 },
 }
-print("What Playlist do you want?")
-print(lists)
-local enteredlist = read()
-local chosenlist = 0
 while true do
-    for i=1,lists.length do
-        if lists[i]==enteredlist then
+    print("What Playlist do you want?")
+    print(textutils.serialize(lists))
+    local enteredlist = read()
+    local chosenlist = 0
+
+    for i=1,#lists do
+        if lists[i].name==enteredlist then
             chosenlist=enteredlist
         end
     end
     if chosenlist == 0 then
         print("Error, playlist not entered. Try again.")
+    else
+        break
     end
 end
 -- 1. Prompt user for the broadcasting frequency
