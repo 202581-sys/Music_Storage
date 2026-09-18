@@ -25,7 +25,7 @@ while true do
             chosenlist=enteredlist
         end
     end
-    if chosenlist = 0 then
+    if chosenlist == 0 then
         print("Error, playlist not entered. Try again.")
     end
 end
