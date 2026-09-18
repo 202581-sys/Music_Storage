@@ -1,8 +1,10 @@
 {
 {
     name="Brands Crushed By The Zeitgeist"
-    url=
+    url="https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Songs/Brands%20Crushed%20by%20the%20Zeitgeist%20%EF%BD%9C%20%20S10E01%20%EF%BD%9C%20Under%20the%20Influence%20with%20Terry%20O'Reilly%20%EF%BD%9C%20Apostrophe%20Pod%20%5Bzr93mPCp4I0%5D.dfpwm"
 }
-
-
+{
+    name="TV Shows As Marketing"
+    url="https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Songs/Gold,%20Silver%20&%20Spinach%EF%BC%9A%20TV%20Shows%20As%20Marketing%20%EF%BD%9C%20S12E06%20%EF%BD%9C%20Under%20the%20Influence%20%EF%BD%9C%20Apostrophe%20%5BBp9k38AUIP8%5D.dfpwm"
+},
 }
