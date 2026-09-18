@@ -15,4 +15,8 @@
     name="784 Variety",
     url="https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Songs/Variety.dfpwm"
 },
+{
+    name="Polaris",
+    url="https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Songs/deadmau5%20-%20Polaris%20%5BLnnyQcRbwEI%5D.dfpwm"
+},
 }
