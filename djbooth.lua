@@ -59,19 +59,16 @@ end
 local content = res.readAll()
 res.close()
 
--- Parse the text file containing Lua table syntax
-local songs = textutils.unserialise(content)
-
--- Fallback to load() if textutils struggles with any trailing formatting
-if not songs then
-    local func = load("return " .. content, "playlist", "t", {})
-    if func then
-        songs = func()
-    end
+-- Parse the text string using load()
+local func, err = load("return " .. content, "playlist", "t", {})
+if not func then
+    error("Syntax error in playlist file:\n" .. tostring(err))
 end
 
-if not songs or type(songs) ~= "table" or #songs == 0 then
-    error("Failed to parse playlist or playlist is empty!")
+local songs = func()
+
+if type(songs) ~= "table" or #songs == 0 then
+    error("Playlist downloaded successfully but contains 0 songs.")
 end
 
 
