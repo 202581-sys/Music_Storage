@@ -16,6 +16,19 @@ local lists = {
 },
 }
 print("What Playlist do you want?")
+print(lists)
+local enteredlist = read()
+local chosenlist = 0
+while true do
+    for i=1,lists.length do
+        if lists[i]==enteredlist then
+            chosenlist=enteredlist
+        end
+    end
+    if chosenlist = 0 then
+        print("Error, playlist not entered. Try again.")
+    end
+end
 -- 1. Prompt user for the broadcasting frequency
 term.clear()
 term.setCursorPos(1, 1)
@@ -35,7 +48,7 @@ mon.setTextScale(0.5)
 -- ========== SONG LIST ==========
 
 local songs = http.request({
-                url = "https://github.com/202581-sys/Music_Storage/raw/refs/heads/main/Weird_Al.txt",
+                url = chosenlist,
                 binary = true,
                 headers = { ["User-Agent"] = "CC-Tweaked" }
             })
