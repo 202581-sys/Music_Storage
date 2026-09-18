@@ -1,7 +1,21 @@
 -- Wireless Radio Stream Transmitter with Queue System & Monitor UI
 local modem = peripheral.find("modem") or error("No Ender Modem attached!")
 local mon = peripheral.find("monitor") or error("No Advanced Monitor found!")
-
+local lists = {
+{
+    name="Weird Al",
+    url=""
+},
+{
+    name="Under The Influence",
+    url=""
+},
+{
+    name="Misc Songs",
+    url=""
+},
+}
+print("What Playlist do you want?")
 -- 1. Prompt user for the broadcasting frequency
 term.clear()
 term.setCursorPos(1, 1)
@@ -20,7 +34,13 @@ mon.setTextScale(0.5)
 
 -- ========== SONG LIST ==========
 
-local songs = {
+local songs = http.request({
+                url = ,
+                binary = true,
+                headers = { ["User-Agent"] = "CC-Tweaked" }
+            })
+
+{
     {
         name = "Akon - Ghetto",
         url = "https://raw.githubusercontent.com/iChronixz-git/Music/main/1nryuu.dfpwm"
